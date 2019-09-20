@@ -1,9 +1,24 @@
 const assert = require("assert");
+const fs = require("fs");
+const exifremove = require("../src/exifremove");
 
 describe("exifremove", function() {
+    let imageBuffer;
+    let expectedIndices = [20, 21, 22, 23];
+    let exifData = "ffe11dfe";
+    
+    before(function() {
+        imageBuffer = fs.readFileSync("test/img/test.jpg");
+    });
+
     describe("remove", function() {
         it("should remove EXIF from a single image correctly", function() {
-            assert.fail("Not yet implemented");
+            var result = exifremove.remove(imageBuffer);
+            var strToCheck = "";
+            expectedIndices.forEach((index) => {
+                strToCheck += result[index].toString(16);
+            });
+            assert.notStrictEqual(strToCheck, exifData);
         });
         it("should keep APP1 section if keepMarker is specified", function() {
             assert.fail("Not yet implemented");

@@ -1,12 +1,12 @@
 {
-  "name": "exif",
+  "name": "exifremove",
   "version": "1.0.0",
-  "description": "",
+  "description": "Dependency-free Node.js module for removing EXIF metadata from JPEG images",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
   },
-  "author": "",
+  "author": "James Cote (Coteh)",
   "license": "ISC",
   "dependencies": {
     "yargs": "^14.0.0"

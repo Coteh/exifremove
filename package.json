@@ -13,5 +13,13 @@
   },
   "devDependencies": {
     "mocha": "^6.2.0"
-  }
+  },
+  "keywords": [
+    "jpeg",
+    "jpg",
+    "exif",
+    "remove",
+    "remover",
+    "strip"
+  ]
 }

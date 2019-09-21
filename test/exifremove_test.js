@@ -8,7 +8,7 @@ describe("exifremove", function() {
     let exifData = "ffe11dfe";
     
     before(function() {
-        imageBuffer = fs.readFileSync("./test/img/test.jpg");
+        imageBuffer = fs.readFileSync("test/img/test.jpg");
     });
 
     describe("remove", function() {
@@ -32,7 +32,7 @@ describe("exifremove", function() {
             assert.strictEqual(strToCheck, exifData);
         });
         it("should throw for non-JPEG formats", function() {
-            var testBuffer = fs.readFileSync("./test/img/test_no_png.png");
+            var testBuffer = fs.readFileSync("test/img/test_no_png.png");
             try {
                 exifremove.remove(testBuffer);
             } catch (e) {
@@ -54,7 +54,7 @@ describe("exifremove", function() {
             assert.strictEqual(result, undefined);
         });
         it("should not alter an image that did not have EXIF metadata originally", function() {
-            var testBuffer = fs.readFileSync("./test/img/test_no_exif.jpg");
+            var testBuffer = fs.readFileSync("test/img/test_no_exif.jpg");
             var result = exifremove.remove(testBuffer);
             assert(result.equals(result));
         });

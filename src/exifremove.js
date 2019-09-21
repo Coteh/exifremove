@@ -1,4 +1,8 @@
 var remove = function(imageBuffer, options) {
+    if (imageBuffer == undefined || imageBuffer.length < 2) {
+        return undefined;
+    }
+
     if (options == undefined) {
         options = {};
     }
@@ -7,8 +11,7 @@ var remove = function(imageBuffer, options) {
     var startPortion = imageBuffer[0].toString(16) + imageBuffer[1].toString(16);
 
     if (startPortion !== "ffd8") {
-        console.log("Not a JPG");
-        return;
+        throw new Error("Not a JPEG");
     }
 
     // Main portion which handles the logic for where to splice
@@ -66,7 +69,7 @@ var remove = function(imageBuffer, options) {
     // Write the last pair
     offsetPairs.push({
         start: lastRecordedByteIndex,
-        end: i
+        end: i + 1
     });
 
     if (options.verbose)

@@ -11,17 +11,9 @@ npm install exifremove
 or, if you would like to use the CLI:
 
 ```sh
-npm install -g exifremove
+npm install -g exifremove-cli
 ```
 
 ## Usage
 
-```
-exifremove [image0] ... [imageN]
-
-Options:
---version            Show version number                             [boolean]
--v, --verbose        Print extra messages                              [count]
---km, --keep-marker  Keeps the APP1 marker in the JPEG               [boolean]
--h, --help           Show help                                       [boolean]
-```
+Check out the [README.md](cli/README.md) for the CLI module for CLI usage information.

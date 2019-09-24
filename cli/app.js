@@ -1,5 +1,5 @@
 const fs = require("fs");
-const exifRemove = require("./src/exifremove");
+const exifRemove = require("exifremove");
 const argv = require("yargs")
     .usage("exifremove [image0] ... [imageN]")
     .count("verbose")

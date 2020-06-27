@@ -22,5 +22,10 @@
   },
   "bin": {
     "exifremove": "./app.js"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/Coteh/exifremove.git",
+    "directory": "cli"
   }
 }

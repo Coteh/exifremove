@@ -4,12 +4,15 @@
   "description": "Dependency-free Node.js module for removing EXIF metadata from JPEG images",
   "main": "src/exifremove.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "test-ci": "nyc --reporter=lcovonly mocha test --reporter mocha-junit-reporter"
   },
   "author": "James Cote (Coteh)",
   "license": "MIT",
   "devDependencies": {
-    "mocha": "^6.2.0"
+    "mocha": "^7.1.2",
+    "mocha-junit-reporter": "^1.23.3",
+    "nyc": "^15.0.1"
   },
   "keywords": [
     "jpeg",

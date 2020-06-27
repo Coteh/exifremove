@@ -1,26 +1,19 @@
 # exifremove-cli
 
+Command-line interface that utilizes [exifremove](https://github.com/Coteh/exifremove) to remove EXIF metdata from JPEG images.
+
 ## Installation
 
 ### Normal Installation
 
-`npm install exifremove-cli`
+`npm install -g exifremove-cli`
 
 ### Development Installation
 
-Run `npm install` to install CLI dependencies.
-
-`cd` into root directory of this repository (containing dependency `exifremove`), run
-
-`npm link`
-
-to link it to your global `node_modules`.
-
-`cd` back into `exifremove-cli` directory, run
-
-`npm link exifremove`
-
-to overwrite `exifremove` dependency with a symlink to your local installation.
+1. `cd` into project root. (containing the main `exifremove` module)
+1. Run `npm link` to link it to global `node_modules`.
+1. `cd` back into CLI folder, run `npm link exifremove` to link `exifremove` dependency to the linked version made in the previous step.
+1. Run `npm install` to install the remaining CLI dependencies.
 
 ## Usage
 

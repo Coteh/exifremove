@@ -96,7 +96,7 @@ module.exports.removeMultiple = function(imageBuffers, options) {
         options = {};
     }
 
-    imageBuffers.map((imageBuffer) => remove(imageBuffer, options.verbose));
+    return imageBuffers.map((imageBuffer) => remove(imageBuffer, options.verbose));
 };
 
 module.exports.remove = remove;

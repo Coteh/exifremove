@@ -1,6 +1,10 @@
 .DS_Store
 *.jpg
 *.jpeg
+!test/img/*.jpg
+!test/img/*.jpeg
+test/img/*.modified.jpg
+test/img/*.modified.jpeg
 
 # Created by https://www.gitignore.io/api/node
 # Edit at https://www.gitignore.io/?templates=node

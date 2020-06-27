@@ -17,9 +17,14 @@ var remove = function(imageBuffer, options) {
     // Main portion which handles the logic for where to splice
     var offsetPairs = [];
     var lastRecordedByteIndex = 0;
-    for (var i = 0; i + 1 < imageBuffer.length; i += 2) {
+    for (var i = 0; i + 1 < imageBuffer.length; i++) {
         // Gather the hex representation of the two bytes found at this point in string format
         bytePortion = imageBuffer[i].toString(16) + imageBuffer[i + 1].toString(16);
+
+        // There should be no EXIF metadata after the SOS marker
+        if (bytePortion === "ffda") {
+            break;
+        }
 
         // Check for markers
         switch (bytePortion) {
@@ -69,7 +74,7 @@ var remove = function(imageBuffer, options) {
     // Write the last pair
     offsetPairs.push({
         start: lastRecordedByteIndex,
-        end: i + 1
+        end: imageBuffer.length
     });
 
     if (options.verbose)
@@ -91,7 +96,7 @@ module.exports.removeMultiple = function(imageBuffers, options) {
         options = {};
     }
 
-    imageBuffers.map((imageBuffer) => remove(imageBuffer, options.verbose));
+    return imageBuffers.map((imageBuffer) => remove(imageBuffer, options.verbose));
 };
 
 module.exports.remove = remove;

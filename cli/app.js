@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const fs = require("fs");
 const exifRemove = require("exifremove");
 const argv = require("yargs")

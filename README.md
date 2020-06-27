@@ -46,4 +46,14 @@ console.log(images);
 
 ### CLI
 
-Check out the [Readme for the CLI module](cli/README.md) for CLI usage information.
+```
+exifremove [image0] ... [imageN]
+
+Options:
+  --version            Show version number                             [boolean]
+  -v, --verbose        Print extra messages                              [count]
+  --km, --keep-marker  Keeps the APP1 marker in the JPEG               [boolean]
+  -h, --help           Show help                                       [boolean]
+```
+
+Check out the [CLI module's Readme](cli/README.md) for more information.

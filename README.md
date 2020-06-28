@@ -12,7 +12,7 @@ Given an image like this, which contains EXIF and other APP1 metadata:
 
 ![before](screenshots/exif_before.png)
 
-This module will strip out the metadata from the image, without any loss in quality:
+This module will strip out the metadata from the image, with no loss in quality:
 
 ![after](screenshots/exif_after.png)
 

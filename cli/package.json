@@ -17,7 +17,7 @@
     "strip"
   ],
   "dependencies": {
-    "exifremove": "^1.0.0",
+    "exifremove": "^1.0.1",
     "yargs": "^14.0.0"
   },
   "bin": {

@@ -1,0 +1,9 @@
+.github
+**/node_modules
+*.html
+*.md
+*.yml
+*.xml
+coverage
+.nyc_output
+**/LICENSE

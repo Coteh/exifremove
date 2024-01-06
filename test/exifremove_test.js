@@ -94,6 +94,9 @@ describe("exifremove", function() {
             var result = exifremove.remove(testBuffer);
             assert(result.equals(result));
         });
+        it("should fail", () => {
+            assert.fail("just a test");
+        });
     });
 
     describe("removeMultiple", function() {

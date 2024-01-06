@@ -1,6 +1,6 @@
 name: CI
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   build:
@@ -41,8 +41,11 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
         files: ./coverage/lcov.info
 
+    - name: Rename coverage file
+      run: mv ./coverage/lcov.info ./coverage/lcov-${{ matrix.node }}.info
+
     - name: Upload coverage artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v3 # https://github.com/actions/upload-artifact/issues/478
       with:
         name: coverage
         path: ./coverage

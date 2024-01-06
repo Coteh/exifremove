@@ -1,1 +1,16 @@
 cli/
+
+.husky/
+.prettier*
+
+*.jpg
+*.jpeg
+!test/img/*.jpg
+!test/img/*.jpeg
+test/img/*.modified.jpg
+test/img/*.modified.jpeg
+
+test-results.xml
+coverage/
+*.lcov
+.nyc_output/

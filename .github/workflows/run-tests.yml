@@ -52,4 +52,4 @@ jobs:
       if: always()
       with:
         files: |
-          ./junit/simpleimage/test-results.xml
+          ./test-results.xml

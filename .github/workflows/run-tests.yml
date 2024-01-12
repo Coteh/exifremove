@@ -1,0 +1,58 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node: [ 14, 16, 18, 20 ]
+
+    name: Test Node ${{ matrix.node }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js ${{ matrix.node }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node }}
+
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: ./node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests
+      run: npm run test-ci
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ./coverage/lcov.info
+
+    - name: Rename coverage file
+      run: mv ./coverage/lcov.info ./coverage/lcov-${{ matrix.node }}.info
+
+    - name: Upload coverage artifacts
+      uses: actions/upload-artifact@v3 # https://github.com/actions/upload-artifact/issues/478
+      with:
+        name: coverage
+        path: ./coverage
+
+    - name: Publish test results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always()
+      with:
+        files: |
+          ./test-results.xml

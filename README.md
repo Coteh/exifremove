@@ -71,7 +71,3 @@ Options:
 ```
 
 Check out the [CLI module's Readme](cli/README.md) for more information.
-
-## Contributing
-
-Be sure to run `npx husky install` so that files are auto-formatted when committing changes.

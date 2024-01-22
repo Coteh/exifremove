@@ -13,7 +13,7 @@
   "license": "MIT",
   "devDependencies": {
     "husky": "^8.0.3",
-    "mocha": "^7.1.2",
+    "mocha": "^10.2.0",
     "mocha-junit-reporter": "^1.23.3",
     "nyc": "^15.0.1",
     "prettier": "3.1.1",

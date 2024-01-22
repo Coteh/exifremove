@@ -1,4 +1,4 @@
-var remove = function(imageBuffer, options) {
+var remove = function (imageBuffer, options) {
     if (imageBuffer == undefined || imageBuffer.length < 2) {
         return undefined;
     }
@@ -6,7 +6,7 @@ var remove = function(imageBuffer, options) {
     if (options == undefined) {
         options = {};
     }
-    
+
     // Ensure it's a JPEG image before continuing
     var startPortion = imageBuffer[0].toString(16) + imageBuffer[1].toString(16);
 
@@ -35,7 +35,11 @@ var remove = function(imageBuffer, options) {
 
                 if (options.verbose) {
                     console.log("APP1 start");
-                    console.log("offset in hex: " + imageBuffer[i + 2].toString(16) + imageBuffer[i + 3].toString(16))
+                    console.log(
+                        "offset in hex: " +
+                            imageBuffer[i + 2].toString(16) +
+                            imageBuffer[i + 3].toString(16),
+                    );
                     console.log("offset in decimal: " + offsetSize);
                 }
 
@@ -47,34 +51,38 @@ var remove = function(imageBuffer, options) {
                     imageBuffer[i + 2] = 0;
                     imageBuffer[i + 3] = 2;
                     // Offset end will now be at i + 4 to keep the marker and offset bytes
-                    offsetEnd = i + 4
+                    offsetEnd = i + 4;
                 }
 
                 // Push the start and end offsets to the offset pairs,
                 // to indicate that we want a slice of the data from these ends
                 offsetPairs.push({
                     start: lastRecordedByteIndex,
-                    end: offsetEnd
+                    end: offsetEnd,
                 });
 
                 // Skip to the end of the APP1 segment
                 lastRecordedByteIndex = i + offsetSize + 2;
 
                 if (options.verbose)
-                    console.log((imageBuffer[lastRecordedByteIndex] * 256 + imageBuffer[lastRecordedByteIndex + 1]).toString(16));
+                    console.log(
+                        (
+                            imageBuffer[lastRecordedByteIndex] * 256 +
+                            imageBuffer[lastRecordedByteIndex + 1]
+                        ).toString(16),
+                    );
 
                 i = lastRecordedByteIndex;
-                if (options.verbose)
-                    console.log("New i->" + i)
+                if (options.verbose) console.log("New i->" + i);
 
                 break;
         }
-    };
+    }
 
     // Write the last pair
     offsetPairs.push({
         start: lastRecordedByteIndex,
-        end: imageBuffer.length
+        end: imageBuffer.length,
     });
 
     if (options.verbose)
@@ -91,7 +99,7 @@ var remove = function(imageBuffer, options) {
     return Buffer.concat(imageSlices);
 };
 
-module.exports.removeMultiple = function(imageBuffers, options) {
+module.exports.removeMultiple = function (imageBuffers, options) {
     if (options == undefined) {
         options = {};
     }

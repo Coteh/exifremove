@@ -8,35 +8,36 @@ jobs:
 
     strategy:
       matrix:
-        node: [ 14, 16, 18, 20 ]
+        node: [ 18, 20, 22, 24, 26 ]
 
     name: Test Node ${{ matrix.node }}
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v6
+
+    - name: Install pnpm
+      uses: pnpm/action-setup@v6
+      with:
+        version: 10
 
     - name: Setup Node.js ${{ matrix.node }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node }}
-
-    - name: Cache dependencies
-      uses: actions/cache@v3
-      with:
-        path: ./node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
+        cache: pnpm
 
     - name: Install dependencies
-      run: npm install
+      run: pnpm install --frozen-lockfile
 
     - name: Run tests
-      run: npm run test-ci
+      run: pnpm run test-ci
+
+    - name: Run type checks
+      run: pnpm run typecheck
 
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v6
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         files: ./coverage/lcov.info
@@ -45,9 +46,9 @@ jobs:
       run: mv ./coverage/lcov.info ./coverage/lcov-${{ matrix.node }}.info
 
     - name: Upload coverage artifacts
-      uses: actions/upload-artifact@v3 # https://github.com/actions/upload-artifact/issues/478
+      uses: actions/upload-artifact@v7
       with:
-        name: coverage
+        name: coverage-node-${{ matrix.node }}
         path: ./coverage
 
     - name: Publish test results

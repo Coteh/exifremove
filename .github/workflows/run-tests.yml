@@ -8,12 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        node: [ 14, 16, 18, 20, 24, 26 ]
-        include:
-          - node: 24
-            node-version: "24.16.0"
-          - node: 26
-            node-version: "26.2.0"
+        node: [ 14, 16, 18, 20, 22, 24, 26 ]
 
     name: Test Node ${{ matrix.node }}
 
@@ -24,7 +19,7 @@ jobs:
     - name: Setup Node.js ${{ matrix.node }}
       uses: actions/setup-node@v4
       with:
-        node-version: ${{ matrix.node-version || matrix.node }}
+        node-version: ${{ matrix.node }}
 
     - name: Cache dependencies
       uses: actions/cache@v4

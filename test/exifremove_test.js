@@ -105,6 +105,45 @@ describe("exifremove", function () {
         });
     });
 
+    describe("remove with includeIPTC", function () {
+        it("should remove IPTC metadata when includeIPTC is true", function () {
+            throw new Error("Test not implemented");
+        });
+        it("should not remove IPTC metadata when includeIPTC is false", function () {
+            throw new Error("Test not implemented");
+        });
+        it("should not remove IPTC metadata when includeIPTC is not specified", function () {
+            throw new Error("Test not implemented");
+        });
+    });
+
+    describe("remove with includeXMP", function () {
+        it("should remove XMP metadata when includeXMP is true", function () {
+            throw new Error("Test not implemented");
+        });
+        it("should not remove XMP metadata when includeXMP is false", function () {
+            throw new Error("Test not implemented");
+        });
+        it("should not remove XMP metadata when includeXMP is not specified", function () {
+            throw new Error("Test not implemented");
+        });
+    });
+
+    describe("remove with includeIPTC and includeXMP combined", function () {
+        it("should remove both IPTC and XMP metadata when both flags are true", function () {
+            throw new Error("Test not implemented");
+        });
+        it("should remove only IPTC metadata when includeIPTC is true and includeXMP is false", function () {
+            throw new Error("Test not implemented");
+        });
+        it("should remove only XMP metadata when includeIPTC is false and includeXMP is true", function () {
+            throw new Error("Test not implemented");
+        });
+        it("should not remove IPTC or XMP metadata when both flags are false", function () {
+            throw new Error("Test not implemented");
+        });
+    });
+
     describe("removeMultiple", function () {
         it("should remove EXIF from all images passed in", function () {
             var result = exifremove.removeMultiple([

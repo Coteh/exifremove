@@ -76,6 +76,17 @@ var remove = function (imageBuffer, options) {
                 if (options.verbose) console.log("New i->" + i);
 
                 break;
+            // APP13 Marker (which is typically designated for IPTC)
+            case "ffed":
+                if (options.includeIPTC) {
+                    // TODO: Implement IPTC metadata removal
+                }
+                break;
+        }
+
+        // Check for XMP metadata
+        if (options.includeXMP) {
+            // TODO: Implement XMP metadata removal
         }
     }
 

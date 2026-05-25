@@ -6,6 +6,9 @@
 
 Dependency-free Node.js module that simply removes all EXIF metadata from a single image or a set of images.
 
+> [!NOTE]
+> This package still works on Node.js 14 through 20, but will be removed from support in a future release.
+
 ## What can this do?
 
 Given an image like this, which contains EXIF and other APP1 metadata:

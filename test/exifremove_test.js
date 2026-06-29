@@ -117,6 +117,23 @@ describe("exifremove", function () {
                 assert.equal(checkForExifHeader(elem), false);
             });
         });
+        it("should keep APP1 section for all images if keepMarker is specified", function () {
+            var result = exifremove.removeMultiple(
+                [imageBuffer, fs.readFileSync("test/img/test2.jpg")],
+                { keepMarker: true },
+            );
+            assert.strictEqual(result.length, 2);
+            result.forEach((elem) => {
+                assert.equal(
+                    checkForAPP1Header(elem, [
+                        (buffer, i) => {
+                            return buffer[i + 2].toString(16) + buffer[i + 3].toString(16) === "02";
+                        },
+                    ]),
+                    true,
+                );
+            });
+        });
         it("should return no elements if passing in an empty array", function () {
             var result = exifremove.removeMultiple([]);
             assert.strictEqual(result.length, 0);

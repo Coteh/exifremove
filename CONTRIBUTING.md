@@ -20,16 +20,30 @@ By contributing, you agree to release your modifications under the MIT license (
 
 ## Building
 
+This project uses [pnpm](https://pnpm.io) for dependency management. Do not use `npm install` or `yarn`, as that will generate the wrong lock file (`package-lock.json` or `yarn.lock` instead of `pnpm-lock.yaml`).
+
 To install all development dependencies needed for working on the project:
 
 ```sh
-npm install
+pnpm install
 ```
 
 To run tests:
 
 ```sh
-npm run test
+pnpm test
 ```
 
-Also, be sure to run `npx husky install` so that files are auto-formatted when committing changes.
+To run the TypeScript type checker:
+
+```sh
+pnpm run typecheck
+```
+
+To format code manually:
+
+```sh
+pnpm run format
+```
+
+Also, be sure to run `pnpm exec husky install` so that files are auto-formatted when committing changes.

@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Expanded explanation of what this module can do in `README.md`
 - Added a deprecation notice in `README.md` for Node.js 14 through 20 support.
-- TypeScript type definitions (`src/exifremove.d.ts`) with type tests and CI integration.
+- TypeScript type definitions.
 
 ### Fixed
 

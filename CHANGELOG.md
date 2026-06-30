@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Expanded explanation of what this module can do in `README.md`
 - Added a deprecation notice in `README.md` for Node.js 14 through 20 support.
+- TypeScript type definitions.
+
+### Fixed
+
+- `removeMultiple` was passing `options.verbose` (a boolean) instead of the full `options` object to `remove()`, causing `keepMarker` and `verbose` to be silently ignored for all `removeMultiple` callers.
 
 ## [1.0.1] - 2020-06-28
 

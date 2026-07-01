@@ -39,6 +39,7 @@ const paths = ['img001.jpg', 'img002.jpg'];
 const results = removeMultiple(paths.map((p) => readFileSync(p)));
 
 results.forEach((result, i) => {
+    if (result === undefined) return;
     writeFileSync(paths[i].replace('.jpg', '.modified.jpg'), result);
 });
 ```

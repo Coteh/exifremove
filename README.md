@@ -124,9 +124,16 @@ import { remove } from 'exifremove';
 
 export default {
     async fetch(request) {
+        if (request.method !== 'POST') {
+            return new Response('Send a POST request with a JPEG image body', { status: 405 });
+        }
         const imageData = await request.arrayBuffer();
-        const result = remove(Buffer.from(imageData));
-        return new Response(result, { headers: { 'Content-Type': 'image/jpeg' } });
+        try {
+            const result = remove(Buffer.from(imageData));
+            return new Response(result, { headers: { 'Content-Type': 'image/jpeg' } });
+        } catch (e) {
+            return new Response(e.message, { status: 400 });
+        }
     },
 };
 ```
@@ -141,8 +148,15 @@ import { remove } from 'exifremove';
 export const config = { runtime: 'edge' };
 
 export default async function handler(request: Request): Promise<Response> {
+    if (request.method !== 'POST') {
+        return new Response('Send a POST request with a JPEG image body', { status: 405 });
+    }
     const imageData = await request.arrayBuffer();
-    const result = remove(Buffer.from(imageData));
-    return new Response(result, { headers: { 'Content-Type': 'image/jpeg' } });
+    try {
+        const result = remove(Buffer.from(imageData));
+        return new Response(result, { headers: { 'Content-Type': 'image/jpeg' } });
+    } catch (e) {
+        return new Response((e as Error).message, { status: 400 });
+    }
 }
 ```

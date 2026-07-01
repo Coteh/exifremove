@@ -10,6 +10,10 @@ if (!inputPath) {
 
 const input = fs.readFileSync(inputPath);
 const output = remove(input);
+if (output === undefined) {
+    console.error('Error: could not process image (file is empty or too short)');
+    process.exit(1);
+}
 const outputPath = inputPath.replace(/(\.[^.]+)$/, '.modified$1');
 fs.writeFileSync(outputPath, output);
 console.log(`Written to ${outputPath}`);

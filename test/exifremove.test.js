@@ -80,7 +80,7 @@ describe('exifremove', function () {
         it('should not alter an image that did not have EXIF metadata originally', function () {
             const testBuffer = Buffer.from(fixtures.testNoExifJpg);
             const result = exifremove.remove(testBuffer);
-            expect(result.equals(result)).toBe(true);
+            expect(result.equals(testBuffer)).toBe(true);
         });
     });
 

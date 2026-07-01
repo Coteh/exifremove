@@ -14,6 +14,12 @@ var remove = function (imageBuffer, options) {
         throw new Error("Not a JPEG");
     }
 
+    // Defensive copy: keepMarker writes back into imageBuffer to encode the
+    // stub size, so work on a copy to avoid mutating the caller's buffer.
+    if (options.keepMarker) {
+        imageBuffer = Buffer.from(imageBuffer);
+    }
+
     // Main portion which handles the logic for where to splice
     var offsetPairs = [];
     var lastRecordedByteIndex = 0;
@@ -29,7 +35,7 @@ var remove = function (imageBuffer, options) {
         // Check for markers
         switch (bytePortion) {
             // APP1 Marker (which is typically designated for EXIF)
-            case "ffe1":
+            case "ffe1": {
                 // Grab offset size of the EXIF data which is found in following two bytes
                 var offsetSize = imageBuffer[i + 2] * 256 + imageBuffer[i + 3];
 
@@ -76,6 +82,7 @@ var remove = function (imageBuffer, options) {
                 if (options.verbose) console.log("New i->" + i);
 
                 break;
+            }
         }
     }
 

@@ -9,9 +9,8 @@ export default {
             );
         }
 
-        const imageData = await request.arrayBuffer();
-
         try {
+            const imageData = await request.arrayBuffer();
             const result = remove(Buffer.from(imageData));
             return new Response(result, {
                 headers: { 'Content-Type': 'image/jpeg' },

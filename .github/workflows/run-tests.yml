@@ -1,6 +1,6 @@
 name: CI
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -8,9 +8,45 @@ jobs:
 
     strategy:
       matrix:
-        node: [ 18, 20, 22, 24, 26 ]
+        include:
+          - runtime: node
+            node-version: 18
+            display-name: node 18
+            test-cmd: pnpm exec vitest run --coverage
+          - runtime: node
+            node-version: 20
+            display-name: node 20
+            test-cmd: pnpm exec vitest run --coverage
+          - runtime: node
+            node-version: 22
+            display-name: node 22
+            test-cmd: pnpm exec vitest run --coverage
+          - runtime: node
+            node-version: 24
+            display-name: node 24
+            test-cmd: pnpm exec vitest run --coverage
+          - runtime: node
+            node-version: 26
+            display-name: node 26
+            test-cmd: pnpm exec vitest run --coverage
+          - runtime: deno
+            node-version: 22
+            display-name: deno
+            test-cmd: deno run -A npm:vitest run
+          - runtime: bun
+            node-version: 22
+            display-name: bun
+            test-cmd: bunx vitest run
+          - runtime: cloudflare-workers
+            node-version: 22
+            display-name: cloudflare-workers
+            test-cmd: pnpm exec vitest run --config vitest.config.workers.ts
+          - runtime: vercel-edge
+            node-version: 22
+            display-name: vercel-edge
+            test-cmd: pnpm exec vitest run --config vitest.config.edge.ts
 
-    name: Test Node ${{ matrix.node }}
+    name: Test (${{ matrix.display-name }})
 
     steps:
     - name: Checkout code
@@ -21,34 +57,46 @@ jobs:
       with:
         version: 10
 
-    - name: Setup Node.js ${{ matrix.node }}
+    - name: Setup Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
-        node-version: ${{ matrix.node }}
+        node-version: ${{ matrix.node-version }}
         cache: pnpm
+
+    - name: Setup Deno
+      if: matrix.runtime == 'deno'
+      uses: denoland/setup-deno@v2
+
+    - name: Setup Bun
+      if: matrix.runtime == 'bun'
+      uses: oven-sh/setup-bun@v2
 
     - name: Install dependencies
       run: pnpm install --frozen-lockfile
 
     - name: Run tests
-      run: pnpm run test-ci
+      run: ${{ matrix.test-cmd }}
 
     - name: Run type checks
+      if: matrix.runtime == 'node' && matrix.node-version == 22
       run: pnpm run typecheck
 
     - name: Upload coverage to Codecov
+      if: matrix.runtime == 'node'
       uses: codecov/codecov-action@v6
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         files: ./coverage/lcov.info
 
     - name: Rename coverage file
-      run: mv ./coverage/lcov.info ./coverage/lcov-${{ matrix.node }}.info
+      if: matrix.runtime == 'node'
+      run: mv ./coverage/lcov.info ./coverage/lcov-${{ matrix.node-version }}.info
 
     - name: Upload coverage artifacts
+      if: matrix.runtime == 'node'
       uses: actions/upload-artifact@v7
       with:
-        name: coverage-node-${{ matrix.node }}
+        name: coverage-node-${{ matrix.node-version }}
         path: ./coverage
 
     - name: Publish test results

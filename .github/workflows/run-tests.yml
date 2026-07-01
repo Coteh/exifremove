@@ -40,7 +40,7 @@ jobs:
           - runtime: cloudflare-workers
             node-version: 22
             display-name: cloudflare-workers
-            test-cmd: pnpm exec vitest run --config vitest.config.workers.ts
+            test-cmd: pnpm exec vitest run --config vitest.config.workers.mts
           - runtime: vercel-edge
             node-version: 22
             display-name: vercel-edge

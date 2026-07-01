@@ -44,6 +44,6 @@
     "url": "https://github.com/Coteh/exifremove.git"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["esbuild", "sharp", "workerd"]
+    "onlyBuiltDependencies": ["esbuild", "workerd"]
   }
 }

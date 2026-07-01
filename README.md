@@ -74,3 +74,89 @@ Options:
 ```
 
 Check out the [CLI module's Readme](cli/README.md) for more information.
+
+## Runtime Support
+
+exifremove works across multiple JavaScript runtimes. The CI pipeline runs the full test suite against each one.
+
+| Runtime | Install | Invoke example |
+|---|---|---|
+| **Node.js** | `npm install exifremove` | `node examples/node/index.js photo.jpg` |
+| **Deno** | no install needed | `deno run --allow-read --allow-write examples/deno/index.ts photo.jpg` |
+| **Bun** | `bun add exifremove` | `bun run examples/bun/index.ts photo.jpg` |
+| **Cloudflare Workers** | `npm install exifremove` | `wrangler dev examples/cloudflare-workers/index.js` |
+| **Vercel Edge Runtime** | `npm install exifremove` | deploy via Vercel or use `vercel dev` |
+
+### Node.js
+
+```js
+const { remove } = require('exifremove');
+const fs = require('fs');
+
+const output = remove(fs.readFileSync('photo.jpg'));
+fs.writeFileSync('photo.modified.jpg', output);
+```
+
+### Deno
+
+```ts
+import { remove } from 'npm:exifremove';
+
+const input = await Deno.readFile('photo.jpg');
+const output = remove(Buffer.from(input));
+await Deno.writeFile('photo.modified.jpg', output);
+```
+
+### Bun
+
+```ts
+import { remove } from 'exifremove';
+import { readFileSync, writeFileSync } from 'fs';
+
+const output = remove(readFileSync('photo.jpg'));
+writeFileSync('photo.modified.jpg', output);
+```
+
+### Cloudflare Workers
+
+```js
+import { remove } from 'exifremove';
+
+export default {
+    async fetch(request) {
+        if (request.method !== 'POST') {
+            return new Response('Send a POST request with a JPEG image body', { status: 405 });
+        }
+        const imageData = await request.arrayBuffer();
+        try {
+            const result = remove(Buffer.from(imageData));
+            return new Response(result, { headers: { 'Content-Type': 'image/jpeg' } });
+        } catch (e) {
+            return new Response(e.message, { status: 400 });
+        }
+    },
+};
+```
+
+Run locally with `wrangler dev examples/cloudflare-workers/index.js`, then `curl -X POST --data-binary @photo.jpg http://localhost:8787 > photo.modified.jpg`.
+
+### Vercel Edge Runtime
+
+```ts
+import { remove } from 'exifremove';
+
+export const config = { runtime: 'edge' };
+
+export default async function handler(request: Request): Promise<Response> {
+    if (request.method !== 'POST') {
+        return new Response('Send a POST request with a JPEG image body', { status: 405 });
+    }
+    const imageData = await request.arrayBuffer();
+    try {
+        const result = remove(Buffer.from(imageData));
+        return new Response(result, { headers: { 'Content-Type': 'image/jpeg' } });
+    } catch (e) {
+        return new Response((e as Error).message, { status: 400 });
+    }
+}
+```

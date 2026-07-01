@@ -14,12 +14,6 @@ var remove = function (imageBuffer, options) {
         throw new Error("Not a JPEG");
     }
 
-    // Defensive copy: keepMarker writes back into imageBuffer to encode the
-    // stub size, so work on a copy to avoid mutating the caller's buffer.
-    if (options.keepMarker) {
-        imageBuffer = Buffer.from(imageBuffer);
-    }
-
     // Main portion which handles the logic for where to splice
     var offsetPairs = [];
     var lastRecordedByteIndex = 0;

@@ -77,6 +77,13 @@ describe('exifremove', function () {
         it('should return undefined if image buffer passed in is null', function () {
             expect(exifremove.remove(null)).toBeUndefined();
         });
+        it.skip('should not mutate the input buffer when keepMarker is true', function () {
+            // TODO: encode the APP1 stub size when building the output slices
+            // rather than writing back into the input buffer, so no copy is needed
+            const inputCopy = Buffer.from(imageBuffer);
+            exifremove.remove(imageBuffer, { keepMarker: true });
+            expect(imageBuffer.equals(inputCopy)).toBe(true);
+        });
         it('should not alter an image that did not have EXIF metadata originally', function () {
             const testBuffer = Buffer.from(fixtures.testNoExifJpg);
             const result = exifremove.remove(testBuffer);

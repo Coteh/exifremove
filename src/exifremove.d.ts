@@ -1,6 +1,8 @@
 export interface RemoveOptions {
     verbose?: boolean;
     keepMarker?: boolean;
+    includeIPTC?: boolean;
+    includeXMP?: boolean;
 }
 
 export function remove(

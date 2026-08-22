@@ -72,7 +72,9 @@ var remove = function (imageBuffer, options) {
                         ).toString(16),
                     );
 
-                i = lastRecordedByteIndex;
+                // Off by one: the loop increments i after each body, so set it
+                // to the byte before the next marker to avoid skipping it.
+                i = lastRecordedByteIndex - 1;
                 if (options.verbose) console.log("New i->" + i);
 
                 break;

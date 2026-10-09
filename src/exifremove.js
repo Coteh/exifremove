@@ -19,7 +19,7 @@ var remove = function (imageBuffer, options) {
     var lastRecordedByteIndex = 0;
     for (var i = 0; i + 1 < imageBuffer.length; i++) {
         // Gather the hex representation of the two bytes found at this point in string format
-        bytePortion = imageBuffer[i].toString(16) + imageBuffer[i + 1].toString(16);
+        var bytePortion = imageBuffer[i].toString(16) + imageBuffer[i + 1].toString(16);
 
         // There should be no EXIF metadata after the SOS marker
         if (bytePortion === "ffda") {
@@ -29,9 +29,9 @@ var remove = function (imageBuffer, options) {
         // Check for markers
         switch (bytePortion) {
             // APP1 Marker (which is typically designated for EXIF)
-            case "ffe1":
+            case "ffe1": {
                 // Grab offset size of the EXIF data which is found in following two bytes
-                offsetSize = imageBuffer[i + 2] * 256 + imageBuffer[i + 3];
+                var offsetSize = imageBuffer[i + 2] * 256 + imageBuffer[i + 3];
 
                 if (options.verbose) {
                     console.log("APP1 start");
@@ -76,6 +76,7 @@ var remove = function (imageBuffer, options) {
                 if (options.verbose) console.log("New i->" + i);
 
                 break;
+            }
         }
     }
 

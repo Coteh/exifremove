@@ -17,7 +17,6 @@ Multiple usage modes and runtimes are supported:
 |------|---------|-------------|
 | **CLI** | `exifremove-cli` | One-off file processing, shell scripts |
 | **Node.js module** | `exifremove` | Programmatic use in a Node.js application |
-| **Deno** | `npm:exifremove` | Deno scripts using `import` from npm |
 | **Bun** | `exifremove` | Bun scripts with native Node compat |
 | **Cloudflare Workers** | `exifremove` | Worker fetch handlers; requires `nodejs_compat` flag |
 | **Vercel Edge Runtime** | `exifremove` | Edge function handlers |
@@ -56,7 +55,6 @@ fs.writeFileSync('photo.modified.jpg', output);
 
 - [cli](rules/cli.md) — CLI flags, output naming, and examples
 - [node](rules/node.md) — Node module API, options, and TypeScript types
-- [deno](rules/deno.md) — Deno usage via npm specifier
 - [bun](rules/bun.md) — Bun usage
 - [cloudflare-workers](rules/cloudflare-workers.md) — Worker fetch handler pattern and wrangler setup
 - [vercel-edge](rules/vercel-edge.md) — Edge function handler pattern

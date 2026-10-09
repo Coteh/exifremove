@@ -82,7 +82,6 @@ exifremove works across multiple JavaScript runtimes. The CI pipeline runs the f
 | Runtime | Install | Invoke example |
 |---|---|---|
 | **Node.js** | `npm install exifremove` | `node examples/node/index.js photo.jpg` |
-| **Deno** | no install needed | `deno run --allow-read --allow-write examples/deno/index.ts photo.jpg` |
 | **Bun** | `bun add exifremove` | `bun run examples/bun/index.ts photo.jpg` |
 | **Cloudflare Workers** | `npm install exifremove` | `wrangler dev examples/cloudflare-workers/index.js` |
 | **Vercel Edge Runtime** | `npm install exifremove` | deploy via Vercel or use `vercel dev` |
@@ -95,16 +94,6 @@ const fs = require('fs');
 
 const output = remove(fs.readFileSync('photo.jpg'));
 fs.writeFileSync('photo.modified.jpg', output);
-```
-
-### Deno
-
-```ts
-import { remove } from 'npm:exifremove';
-
-const input = await Deno.readFile('photo.jpg');
-const output = remove(Buffer.from(input));
-await Deno.writeFile('photo.modified.jpg', output);
 ```
 
 ### Bun

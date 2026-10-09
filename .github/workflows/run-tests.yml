@@ -26,10 +26,6 @@ jobs:
             node-version: 26
             display-name: node 26
             test-cmd: pnpm exec vitest run --coverage
-          - runtime: deno
-            node-version: 22
-            display-name: deno
-            test-cmd: deno run -A npm:vitest run
           - runtime: bun
             node-version: 22
             display-name: bun
@@ -59,10 +55,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: pnpm
-
-    - name: Setup Deno
-      if: matrix.runtime == 'deno'
-      uses: denoland/setup-deno@v2
 
     - name: Setup Bun
       if: matrix.runtime == 'bun'
